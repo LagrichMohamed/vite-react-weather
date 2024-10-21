@@ -28,14 +28,14 @@ function Grp204WeatherApp() {
     const WeekDays = [
       'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'
     ];
-    const date = new Date(timestamp * 1000);  // Convert timestamp to milliseconds
+    const date = new Date(timestamp * 1000); 
     return `${WeekDays[date.getDay()]} ${date.getDate()} ${months[date.getMonth()]}`;
   };
 
   const search = async (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      fetchWeatherForCity(input);  // Using input from search bar
+      fetchWeatherForCity(input);
     }
   };
 
@@ -54,9 +54,9 @@ function Grp204WeatherApp() {
       })
       .then((res) => {
         setWeather({ data: res.data, loading: false, error: false });
-        handleSearchHistory(res.data.city.name); // Store city in search history
-        setInput(''); // Clear input field after fetching
-        setShowMore(false); // Reset showMore state
+        handleSearchHistory(res.data.city.name); 
+        setInput(''); 
+        setShowMore(false); 
       })
       .catch(() => {
         setWeather({ ...weather, data: [], error: true });
@@ -65,11 +65,9 @@ function Grp204WeatherApp() {
   };
 
   const handleSearchHistory = (cityName) => {
-    // Update search history, move the city to the top if it's already in history
     let updatedHistory = searchHistory.filter((city) => city !== cityName);
     updatedHistory = [cityName, ...updatedHistory];
 
-    // Store the updated history in both state and localStorage
     setSearchHistory(updatedHistory);
     localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
   };
@@ -83,7 +81,7 @@ function Grp204WeatherApp() {
     const usedDays = new Set();
 
     forecastList.forEach((forecast) => {
-      const date = new Date(forecast.dt * 1000).getDate(); // Extract the day of the month
+      const date = new Date(forecast.dt * 1000).getDate();
 
       if (!usedDays.has(date)) {
         groupedForecast.push(forecast);
